@@ -1,0 +1,51 @@
+# Archivos de configuración de usuario de Visual Studio
+.vs/
+*.user
+*.suo
+*.sln.docstates
+
+# Archivos de compilación
+bin/
+obj/
+[Bb]uild/
+[Bb]uilds/
+
+# Archivos temporales y de caché
+*.log
+*.tlog
+*.cache
+*.dbmdl
+*.pdb
+*.vspscc
+*.vssscc
+*.vsscc
+
+# Archivos de publicación
+*.Publish.xml
+
+# Archivos de paquetes NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+packages/
+*.psmdcp
+
+# Archivos de configuración local
+appsettings.Development.json
+appsettings.Local.json
+
+# Archivos de índice de contenido (como el que causó el error)
+**/.vs/**/*.vsidx
+**/.vs/**/*.vsscc
+
+# Archivos de entorno
+.env
+*.env
+
+# Archivos de usuario de Rider/ReSharper
+.idea/
+*.DotSettings.user
+
+# Archivos de sistema
+Thumbs.db
+Desktop.ini
