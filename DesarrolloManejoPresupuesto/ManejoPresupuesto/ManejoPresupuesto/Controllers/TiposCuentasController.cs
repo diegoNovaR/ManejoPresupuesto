@@ -1,13 +1,22 @@
-﻿using ManejoPresupuesto.Models;
+﻿using Dapper;
+using ManejoPresupuesto.Models;
+using ManejoPresupuesto.Servicios;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 
 namespace ManejoPresupuesto.Controllers
 {
     public class TiposCuentasController : Controller
     {
+        private readonly IRepositorioTiposCuentas repositorioTiposCuentas;
+        public TiposCuentasController(IRepositorioTiposCuentas repositorioTiposCuentas)
+        {
+            this.repositorioTiposCuentas = repositorioTiposCuentas;
+        }
         public IActionResult Crear()
         {
-            return View();
+
+                return View();
         }
 
         [HttpPost]
@@ -17,6 +26,10 @@ namespace ManejoPresupuesto.Controllers
             {
                 return View(tipoCuenta);// con esto estamos devolviendo el modelo con los errores de validacion
             }
+
+            tipoCuenta.UsuarioId = 1;//temporalmente asignamos el usuario 1
+            repositorioTiposCuentas.Crear(tipoCuenta);
+
             return View();
         }
     }
