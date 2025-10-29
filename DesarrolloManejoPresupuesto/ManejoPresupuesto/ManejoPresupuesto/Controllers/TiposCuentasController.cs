@@ -20,7 +20,7 @@ namespace ManejoPresupuesto.Controllers
         }
 
         [HttpPost]
-        public IActionResult Crear(TipoCuenta tipoCuenta)
+        public async Task<IActionResult> Crear(TipoCuenta tipoCuenta)
         {
             if(!ModelState.IsValid)// si el modelo no es valido
             {
@@ -28,7 +28,7 @@ namespace ManejoPresupuesto.Controllers
             }
 
             tipoCuenta.UsuarioId = 1;//temporalmente asignamos el usuario 1
-            repositorioTiposCuentas.Crear(tipoCuenta);
+            await repositorioTiposCuentas.Crear(tipoCuenta);
 
             return View();
         }
