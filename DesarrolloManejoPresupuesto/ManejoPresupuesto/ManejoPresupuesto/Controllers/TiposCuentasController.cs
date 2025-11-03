@@ -42,6 +42,22 @@ namespace ManejoPresupuesto.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> VerificarExisteTipoCuenta(string nombre)//accion para validacion remota
+        {
+            var usuarioId = 1; // Reemplaza esto con la lógica para obtener el ID del usuario actual
+            var existeTipoCuenta = await repositorioTiposCuentas.Existe(nombre, usuarioId);
+            if(existeTipoCuenta)
+            {
+                return Json($"El nombre {nombre} ya existe.");
+            }
+
+            return Json(true);
+        }
+
+
+
     }
 
 }

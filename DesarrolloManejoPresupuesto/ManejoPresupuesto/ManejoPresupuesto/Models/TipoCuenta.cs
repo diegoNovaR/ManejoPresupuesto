@@ -1,4 +1,6 @@
-﻿using ManejoPresupuesto.Validaciones;
+﻿using ManejoPresupuesto.Controllers;
+using ManejoPresupuesto.Validaciones;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace ManejoPresupuesto.Models
@@ -9,6 +11,7 @@ namespace ManejoPresupuesto.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [StringLength(maximumLength:50, MinimumLength = 3, ErrorMessage = "La longitud del campo {0} debe estar entre {2} y {1}")]
         [PrimeraLetraMayuscula]
+        [Remote(action: "VerificarExisteTipoCuenta", controller:"TiposCuentas")]//validacion remota con JS y JSON
         public string Nombre { get; set; }
         public int UsuarioId { get; set; }
         public int Orden { get; set; }

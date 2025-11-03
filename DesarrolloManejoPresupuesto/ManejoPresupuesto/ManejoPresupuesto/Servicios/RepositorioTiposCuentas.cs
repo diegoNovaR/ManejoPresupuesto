@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using ManejoPresupuesto.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 
 namespace ManejoPresupuesto.Servicios
@@ -36,7 +37,6 @@ namespace ManejoPresupuesto.Servicios
                             WHERE Nombre = @Nombre AND UsuarioId = @usuarioId;", new {nombre, usuarioId});
             return existe == 1;
         }
-
 
 
     }
