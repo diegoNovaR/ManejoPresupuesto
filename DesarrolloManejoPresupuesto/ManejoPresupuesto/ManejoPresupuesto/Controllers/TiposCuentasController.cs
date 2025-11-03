@@ -9,15 +9,17 @@ namespace ManejoPresupuesto.Controllers
     public class TiposCuentasController : Controller
     {
         private readonly IRepositorioTiposCuentas repositorioTiposCuentas;
-        public TiposCuentasController(IRepositorioTiposCuentas repositorioTiposCuentas)
+        private readonly IServicioUsuarios servicioUsuarios;
+        public TiposCuentasController(IRepositorioTiposCuentas repositorioTiposCuentas, IServicioUsuarios servicioUsuarios)
         {
             this.repositorioTiposCuentas = repositorioTiposCuentas;
+            this.servicioUsuarios = servicioUsuarios;
         }
 
 
         public async Task<IActionResult> Index()
         {
-            var usuarioId = 1; //temporalmente asignamos el usuario 1
+            var usuarioId = servicioUsuarios.ObtenerUsuarioId(); //temporalmente asignamos el usuario 1
             var tiposCuentas = await repositorioTiposCuentas.Obtener(usuarioId);
             return View(tiposCuentas);
         }
@@ -37,7 +39,7 @@ namespace ManejoPresupuesto.Controllers
                 return View(tipoCuenta);// con esto estamos devolviendo el modelo con los errores de validacion
             }
 
-            tipoCuenta.UsuarioId = 1;//temporalmente asignamos el usuario 1
+            tipoCuenta.UsuarioId = servicioUsuarios.ObtenerUsuarioId();//temporalmente asignamos el usuario 1
 
             var yaExisteTipoCuenta = await repositorioTiposCuentas.Existe(tipoCuenta.Nombre, tipoCuenta.UsuarioId);
 
@@ -56,7 +58,7 @@ namespace ManejoPresupuesto.Controllers
         [HttpGet]
         public async Task<IActionResult> VerificarExisteTipoCuenta(string nombre)//accion para validacion remota
         {
-            var usuarioId = 1; // Reemplaza esto con la lógica para obtener el ID del usuario actual
+            var usuarioId = servicioUsuarios.ObtenerUsuarioId(); // Reemplaza esto con la lógica para obtener el ID del usuario actual
             var existeTipoCuenta = await repositorioTiposCuentas.Existe(nombre, usuarioId);
             if(existeTipoCuenta)
             {
