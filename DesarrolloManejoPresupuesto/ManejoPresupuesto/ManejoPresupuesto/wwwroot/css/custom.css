@@ -1,0 +1,6 @@
+﻿body {
+}
+
+#reordenable tr {
+    cursor: move;
+}
