@@ -9,6 +9,7 @@ namespace ManejoPresupuesto.Servicios
                                              //la interfaz puede ir en un archivo aparte
     {
         Task Actualizar(TipoCuenta tipoCuenta);
+        Task Borrar(int id);
         Task Crear(TipoCuenta tipoCuenta);
         Task<bool> Existe(string nombre, int usuarioId);
         Task<IEnumerable<TipoCuenta>> Obtener(int usuarioId);
@@ -61,6 +62,12 @@ namespace ManejoPresupuesto.Servicios
             return await connection.QueryFirstOrDefaultAsync<TipoCuenta>(@"SELECT Id, Nombre, Orden
                         FROM TiposCuentas WHERE Id = @Id AND usuarioId = @UsuarioId;", new { id, usuarioId }); 
 
+        }
+
+        public async Task Borrar(int id)
+        {
+            using var connection = new SqlConnection(connectionString);
+            await connection.ExecuteAsync("DELETE TiposCuentas WHERE Id = @Id", new { id });
         }
 
 
