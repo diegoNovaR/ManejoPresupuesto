@@ -28,9 +28,11 @@ namespace ManejoPresupuesto.Servicios
         public async Task Crear(TipoCuenta tipoCuenta)
         {
             using var connection =  new SqlConnection(connectionString);
-            var id = await connection.QuerySingleAsync<int>($@"INSERT INTO TiposCuentas(Nombre, UsuarioId, Orden)
-                        Values(@Nombre, @UsuarioId, 0);
-                        SELECT SCOPE_IDENTITY();", tipoCuenta);//devuelve el id del registro insertado
+            var id = await connection.QuerySingleAsync<int>("TiposCuentas_Insertar",
+                                                new { usuarioId = tipoCuenta.UsuarioId,
+                                                nombre = tipoCuenta.Nombre}, 
+                                                commandType: System.Data.CommandType.StoredProcedure);
+            //colocamos el nombre de los parametros que espera el procedimiento almacenado e indicamos que es un procedimiento almacenado
             tipoCuenta.Id = id;//colocamos el ID del tipo cuenta creado
         }
 
